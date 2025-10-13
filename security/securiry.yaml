@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  # El nombre que usarás para referenciar esta ServiceAccount
+  name: vivancos-serviceaccount
+  # Opcional: El namespace donde se creará. Si se omite, se usará 'default'.
+  namespace: vivancos
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: dashboard-vivancos
+  # Este rol existirá en el namespace del proyecto
+  namespace: vivancos
+rules:
+- apiGroups: ["", "apps", "autoscaling", "batch", "extensions", "networking.k8s.io", "storage.k8s.io"]
+  resources: ["configmaps", "endpoints", "events", "ingresses", "persistentvolumeclaims", "pods", "podtemplates", "replicationcontrollers", "resourcequotas", "secrets", "serviceaccounts", "services", "deployments", "daemonsets", "replicasets", "statefulsets", "horizontalpodautoscalers", "cronjobs", "jobs", "networkpolicies", "storageclasses"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: ["apps"]
+  resources: ["deployments/scale"]
+  verbs: ["*"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: vivancos-dashboard-readonly-binding
+  namespace: vivancos
+subjects:
+- kind: ServiceAccount
+  name: vivancos-serviceaccount # La cuenta de servicio que creamos
+  namespace: vivancos
+roleRef:
+  kind: Role
+  name: dashboard-vivancos # El rol que creamos
+  apiGroup: rbac.authorization.k8s.io

@@ -1,5 +1,23 @@
-# Usamos una imagen base ligera de Alpine con soporte para bash
-FROM alpine:latest
+# Imagen base de Python
+FROM python:3.11-slim
 
-# Establecemos un comando que se ejecutará cuando el contenedor inicie
-CMD echo "Hola Mundo"
+# Directorio de trabajo
+WORKDIR /app
+
+RUN addgroup --system appgroup && adduser --system --group appuser
+
+# Copiar archivos de la aplicación
+COPY app.py /app
+
+# Instalar dependencias
+RUN pip install flask
+
+RUN chown -R appuser:appgroup /app
+
+USER appuser
+
+# Exponer el puerto
+EXPOSE 3000
+
+# Comando de ejecución
+CMD ["python", "app.py"]
