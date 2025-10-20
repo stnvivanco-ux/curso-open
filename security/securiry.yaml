@@ -34,3 +34,26 @@ roleRef:
   kind: Role
   name: dashboard-vivancos # El rol que creamos
   apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: global-reader
+rules:
+- apiGroups: [""]
+  resources: ["namespaces"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vivancos-global-readonly-binding
+subjects:
+- kind: ServiceAccount
+  name: vivancos-serviceaccount # La cuenta de servicio que creamos
+  namespace: vivancos
+roleRef:
+  kind: ClusterRole
+  name: global-reader # El rol que creamos
+  apiGroup: rbac.authorization.k8s.io
