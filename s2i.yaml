@@ -8,7 +8,7 @@ metadata:
 spec:
   lookupPolicy:
     local: false
-
+---
 ---
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
@@ -22,15 +22,12 @@ spec:
     type: Git
     git:
       uri: https://github.com/stnvivanco-ux/curso-open.git
-      ref: master
+      ref: main
     contextDir: ''
   strategy:
-    type: Source
-    sourceStrategy:
-      from:
-        kind: ImageStreamTag
-        namespace: openshift
-        name: "python:3.12-ubi9"
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
   output:
     to: 
       kind: ImageStreamTag
