@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: mi-app-container
-          image: savivancofi/cursosv:2   # 🔹 Cambia esta línea por la imagen que quieras usar
+          image: image-registry.openshift-image-registry.svc:5000/stnvivanco92-dev/ejercicio-codigo-s2i:latest   # 🔹 Cambia esta línea por la imagen que quieras usar
           ports:
             - containerPort: 3000
           resources:
