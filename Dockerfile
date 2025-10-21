@@ -1,5 +1,5 @@
-# Imagen base de Python
-FROM python:3.11-slim
+# Imagen base
+FROM savivancofi/cursosv:1
 
 # Directorio de trabajo
 WORKDIR /app
