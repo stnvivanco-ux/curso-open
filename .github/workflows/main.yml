@@ -57,6 +57,6 @@ jobs:
 
       - name: Deply files
         run: |
-          oc project: stnvivanco92-dev
+          oc project stnvivanco92-dev
           oc apply -f oc.yaml
 
