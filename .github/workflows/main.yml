@@ -66,8 +66,8 @@ jobs:
 
       - name: Deply files
         run: |
-          oc project adonis-paz-dev
+          oc project stnvivanco92-dev
           oc apply -f oc.yaml
           oc rollout status deployment/mi-app-deployment
-
+          
 
