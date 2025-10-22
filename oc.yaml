@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: mi-app-container
-          image: savivancofi/cursosv:{{ tag }}   # 🔹 Cambia esta línea por la imagen que quieras usar
+          image: savivancofi/cursosv:build-{{ tag }}   # 🔹 Cambia esta línea por la imagen que quieras usar
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
