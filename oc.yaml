@@ -36,7 +36,7 @@ spec:
                 name: mi-secret
           volumeMounts:
             - name: datos
-              mount: "/app/data"
+              mountPath: "/app/data"
       volumes:
         - name: datos
           persistentVolumeClaim:
@@ -90,7 +90,7 @@ metadata:
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
-    kind: deployment
+    kind: Deployment
     name: mi-app-deployment
   minReplicas: 2
   maxReplicas: 5
