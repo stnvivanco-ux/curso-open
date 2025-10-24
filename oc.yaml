@@ -103,7 +103,7 @@ metadata:
   name: mi-pvc
   namespace: mi-app-deployment
 spec:
-  accessMode:
+  accessModes:
     - ReadWriteOnce
   resources:
     request:
