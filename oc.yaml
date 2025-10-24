@@ -7,7 +7,7 @@ metadata:
     app: mi-app
     areanegocio: tecnologia
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: mi-app
@@ -61,23 +61,23 @@ spec:
   type: ClusterIP   # 🔹 Cambia a NodePort o LoadBalancer según lo que necesites
 
 ---
-  apiVersion: v1
-  kind: ConfigMap
-  metadata:
-    name: mi-configmap
-    namespace: stnvivanco92-dev
-  data:
-    DATABASE: "192.168.1.1"
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mi-configmap
+  namespace: stnvivanco92-dev
+data:
+  DATABASE: "192.168.1.1"
 
 ---
-  apiVersion: v1
-  kind: Secret
-  metadata:
-    name: mi-secret
-    namespace: stnvivanco92-dev
-  type: Opaque
-  data:
-    PASSWORD: aG9sYQ==
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mi-secret
+  namespace: stnvivanco92-dev
+type: Opaque
+data:
+  PASSWORD: aG9sYQ==
 
 ---
 
@@ -92,8 +92,8 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: mi-app-deployment
-  minReplicas: 2
-  maxReplicas: 5
+  minReplicas: 1
+  maxReplicas: 1
   metrics:
   - type: Resource
     resource:
@@ -111,9 +111,10 @@ metadata:
   namespace: stnvivanco92-dev
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: gp3
+  storageClassName: gp3-csi
+  volumeMode: Filesystem
   
