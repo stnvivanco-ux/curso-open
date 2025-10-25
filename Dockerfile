@@ -11,6 +11,7 @@ COPY app.py /app
 
 # Instalar dependencias
 RUN pip install flask
+RUN pip install requests
 
 RUN chown -R appuser:appgroup /app
 
