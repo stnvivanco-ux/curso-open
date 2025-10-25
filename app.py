@@ -1,10 +1,17 @@
+# app_a.py
 from flask import Flask
+import requests
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET"])
-def hello():
-    return "Hola Mundo", 200
+@app.route('/', methods=['GET'])
+def call_app_b():
+    try:
+        # Llamamos a la app B, que está en localhost:3001
+        response = requests.get('http://mi-app-service-2.stnvivanco92-dev.svc.cluster.local:4000/')
+        return f'Respuesta de app 2: {response.text}', response.status_code
+    except requests.exceptions.ConnectionError:
+        return 'Error: no se pudo conectar con app B', 500
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=3000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=3000)
